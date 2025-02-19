@@ -17,8 +17,16 @@ def get_year_form(num):
             return "лет"
 
 
+def get_link_to_excel():
+    parser = argparse.ArgumentParser(description='Сайт Новое русское вино')
+    parser.add_argument('-l', '--link_to_excel', default='wine3.xlsx', help='Ссылка на ваш excel файл')
+    args = parser.parse_args()
+    return args.link_to_excel
+
+
 def main():
-    wine_characteristics = pandas.read_excel("wine3.xlsx")
+    link = get_link_to_excel()
+    wine_characteristics = pandas.read_excel(io=link, na_values=['N/A', 'NA'], keep_default_na=False))
     wine_characteristics = wine_characteristics.fillna("")
 
     grouped_characteristics = defaultdict(list)
